@@ -35,6 +35,8 @@ try {
 
 });
 
+
+
 app.post("/makeup", async (req, res)=>{
     const data = req.body;
     const newData = new UserModal1(data);
@@ -42,6 +44,19 @@ app.post("/makeup", async (req, res)=>{
     res.send("Post Successfull");
 
 });
+
+app.get("/makeUp", async (req, res)=>{
+
+    try {
+        const data = await UserModal1.find();
+       return res.send(data);
+    } catch (error) {
+       return res.send(error)
+    }
+        
+       
+    
+    });
 
 app.post("/bestSellers", async (req, res)=>{
     const data = req.body;
@@ -54,6 +69,19 @@ app.post("/bestSellers", async (req, res)=>{
 // app.get('/', (req, res)=>{
 //     return res.send("Home")
 // })
+
+app.get("/bestsellers", async (req, res)=>{
+
+    try {
+        const data = await UserModal2.find();
+       return res.send(data);
+    } catch (error) {
+       return res.send(error)
+    }
+        
+       
+    
+    });
 
 app.listen(process.env.PORT, async ()=>{
     try {
