@@ -22,6 +22,19 @@ app.post("/post", async (req, res)=>{
 
 });
 
+app.get("/get", async (req, res)=>{
+
+try {
+    const data = await UserModal.find();
+   return res.send(data);
+} catch (error) {
+   return res.send(error)
+}
+    
+   
+
+});
+
 app.post("/makeup", async (req, res)=>{
     const data = req.body;
     const newData = new UserModal1(data);
