@@ -37,6 +37,9 @@ app.post("/bestSellers", async (req, res)=>{
 
 });
 
+app.get('/', (req, res)=>{
+    return res.send("Home")
+})
 
 app.listen(8080, async ()=>{
     try {
