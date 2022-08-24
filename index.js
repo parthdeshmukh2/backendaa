@@ -22,7 +22,7 @@ app.post("/post", async (req, res)=>{
 
 });
 
-app.get("/get", async (req, res)=>{
+app.get("/", async (req, res)=>{
 
 try {
     const data = await UserModal.find();
@@ -51,9 +51,9 @@ app.post("/bestSellers", async (req, res)=>{
 
 });
 
-app.get('/', (req, res)=>{
-    return res.send("Home")
-})
+// app.get('/', (req, res)=>{
+//     return res.send("Home")
+// })
 
 app.listen(process.env.PORT, async ()=>{
     try {
