@@ -1,11 +1,12 @@
 
 
 const express = require("express");
-
+require('dotenv').config()
 
 const app= express();
 
 app.use(express.json());
+const userControl = express.Router();
 
 
 const connection = require("./Config/db");
@@ -41,7 +42,7 @@ app.get('/', (req, res)=>{
     return res.send("Home")
 })
 
-app.listen(8080, async ()=>{
+app.listen(process.env.PORT, async ()=>{
     try {
         await connection ;
         console.log("Connected");
