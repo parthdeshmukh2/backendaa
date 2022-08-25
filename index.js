@@ -1,5 +1,4 @@
 
-
 const express = require("express");
 var cors = require('cors')
 require('dotenv').config()
@@ -8,82 +7,34 @@ const app= express();
 app.use(cors())
 
 app.use(express.json());
-const userControl = express.Router();
-
 
 const connection = require("./Config/db");
-const UserModal = require("./Modals/data.modal");
-const UserModal1 = require("./Modals/makeup.modal");
-const UserModal2 = require("./Modals/bestSellers.modal");
+const makeUpController = require("./Routes/makeUp.Routes");
+const newArrivalController = require("./Routes/newArrival.Routes");
+const bestSellerController = require("./Routes/bestSellers.Routes");
+const userController = require("./Routes/user.Routes");
+const authentication = require("./Middlewares/Authentication");
+const cartController = require("./Routes/cart.Routes");
+const wishListController = require("./Routes/wishlist.Routes");
 
-app.post("/post", async (req, res)=>{
-    const data = req.body;
-    const newData = new UserModal(data);
-    await newData.save();
-    res.send("Post Successfull");
-
+app.get("/", (req, res)=>{
+    return res.send("Home")
 });
 
-app.get("/", async (req, res)=>{
-
-try {
-    const data = await UserModal.find();
-   return res.send(data);
-} catch (error) {
-   return res.send(error)
-}
-    
-   
-
-});
+app.use("/user", userController);
 
 
 
-app.post("/makeup", async (req, res)=>{
-    const data = req.body;
-    const newData = new UserModal1(data);
-    await newData.save();
-    res.send("Post Successfull");
+app.use("/makeup", makeUpController);
+app.use("/newarrival", newArrivalController);
+app.use("/bestsellers", bestSellerController);
 
-});
+app.use(authentication);
 
-app.get("/makeUp", async (req, res)=>{
+app.use("/cart", cartController);
+app.use("/wishlist", wishListController);
 
-    try {
-        const data = await UserModal1.find();
-       return res.send(data);
-    } catch (error) {
-       return res.send(error)
-    }
-        
-       
-    
-    });
 
-app.post("/bestSellers", async (req, res)=>{
-    const data = req.body;
-    const newData = new UserModal2(data);
-    await newData.save();
-    res.send("Post Successfull");
-
-});
-
-// app.get('/', (req, res)=>{
-//     return res.send("Home")
-// })
-
-app.get("/bestsellers", async (req, res)=>{
-
-    try {
-        const data = await UserModal2.find();
-       return res.send(data);
-    } catch (error) {
-       return res.send(error)
-    }
-        
-       
-    
-    });
 
 app.listen(process.env.PORT, async ()=>{
     try {
