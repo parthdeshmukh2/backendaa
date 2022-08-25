@@ -2,7 +2,7 @@ const express = require("express");
 
 const newArrivalController = express.Router();
 
-const UserModal1 = require("../Modals/makeup.modal");
+const UserModal = require("../Modals/data.modal");
 
 newArrivalController.post("/post", async (req, res)=>{
     const data = req.body;
