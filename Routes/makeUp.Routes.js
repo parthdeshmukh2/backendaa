@@ -24,5 +24,18 @@ makeUpController.get("/", async (req, res)=>{
        
     
     });
+    makeUpController.get("/:id", async (req, res)=>{
+        let id = req.body.id
+
+        try {
+            const data = await UserModal1.findOne({id});
+           return res.send(data);
+        } catch (error) {
+           return res.send(error)
+        }
+            
+           
+        
+        });
 
 module.exports= makeUpController
