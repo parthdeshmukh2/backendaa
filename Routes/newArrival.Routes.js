@@ -13,13 +13,33 @@ newArrivalController.post("/post", async (req, res)=>{
 });
 
 newArrivalController.get("/", async (req, res)=>{
+    let brand = req.query.brand || "All";
 
-try {
-    const data = await UserModal.find();
-   return res.send(data);
-} catch (error) {
-   return res.send(error)
-}
+    const brandOptions = [
+        "BalmLabs",
+        "Hum Nutrition",
+        "Oribe",
+        "R+Co",
+    
+    ];
+   
+
+    brand === "All"
+			? (brand = [...brandOptions])
+			: (brand = req.query.brand.split(","));
+		
+
+        const newProduct = await UserModal.find({ Brand:brandOptions  })
+        .where("brand")
+        .in([...brand])
+        return res.send(newProduct);
+
+// try {
+//     const data = await UserModal.find();
+//   
+// } catch (error) {
+//    return res.send(error)
+// }
     
    
 
@@ -27,6 +47,7 @@ try {
 
 newArrivalController.get("/:id", async (req, res)=>{
     let id = req.body.id;
+   
 
     try {
         const data = await UserModal.findOne({id});
